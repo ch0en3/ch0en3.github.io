@@ -1,0 +1,362 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>无线电安全入门-以固定码为例展示如何分析无线电协议 | ch0en3&#39;s blog</title>
+    <meta name="author" content="ch0en3" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="hacker/geeker" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="ch0en3's blog" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>CH0EN3&#39;S BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;CH0EN3&#39;S BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>无线电安全入门-以固定码为例展示如何分析无线电协议</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/3/16
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E6%97%A0%E7%BA%BF%E7%94%B5%E5%AE%89%E5%85%A8%E5%85%A5%E9%97%A8/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                无线电安全入门
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E6%97%A0%E7%BA%BF%E7%94%B5%E5%AE%89%E5%85%A8%E5%85%A5%E9%97%A8/" style="color: #03a9f4">
+                    无线电安全入门
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h1 id="pjf0P">一.前言</h1>
+
+<p>这篇文章的由来来自于对一个固定码的无线信号进行分析时候发现的一个现象，并由此文记录下从发现问题到解决问题的完整过程。</p>
+<p>为了更方便理解 以下是本文当中出现的所有设备</p>
+<p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316010127668.jpeg"></p>
+<p>它们依照从左到右的顺序为 RTL-SDR，RSP1，esp32，无线门铃</p>
+<p>以下会以 sdr 来替代 rtl-sdr 和 rsp1.</p>
+<p>文中所用软件：universal radio hacker,cc1101-tool</p>
+<h1 id="fUNRT">二:问题由来</h1>
+本次分析的目标是收集目标设备发送的信号并且进行重放。由于在前言当中提到的 sdr 设备只有接收信号的功能而并不能发送信号，因此我采用了 esp32 搭配 cc1101 来完成信号的发送。为了实现这个目的，我需要将 sdr 接收到的调制信号转换为十六进制字符串并且输入到我的 esp32 设备当中。
+
+<p>第一步做的事情是收集信号并且分析。</p>
+<p>以下的所有详细分析过程可以观看 b 站视频(<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV11YULYjEfy),%E8%BF%99%E9%87%8C%E4%B8%8D%E8%BF%87%E5%A4%9A%E8%B5%98%E8%BF%B0">https://www.bilibili.com/video/BV11YULYjEfy),这里不过多赘述</a></p>
+<p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316010139766.png"></p>
+<p>可以看到我们接收到的信号是这样的。</p>
+<p>第二步我们要把数据转换为正确的形式，按照原理，转换后我们应该会得到这样的一些信号</p>
+<p>80000000（这是由于前面还有一小段脉冲 但是由于过滤没有被显示 要加上）</p>
+<p>8e88eeee88ec7477477747740000000</p>
+<p>8e88eeee88ee8e8ee8eee8ee80000000</p>
+<p>8e88eeee88ee8e8ee8eee8ee0000000</p>
+<p>接着我们要把 urh 分析得到的序列号填写进我们的 esp 设备当中</p>
+<p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316010147022.png"></p>
+<p>可以看到这里共有十六个由小脉冲信号组成的大脉冲信号，我们只需要按照如图所示的顺序填入我们的 esp32 当中即可。</p>
+<p>那么填完后 esp32 当中缓冲区内的数据应该是这样的</p>
+<p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316010150003.png"></p>
+<p>此时我们能够正常激活目标设备</p>
+<p>但是我们还有第二种方法也能够实现同样的目标，使用 esp32 自带的记录功能并且重放</p>
+<p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316010152181.png"></p>
+<p>可以看到我们成功的记录下了信号并且将其保存在缓冲区当中</p>
+<p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316010154432.png"></p>
+<p>并且也能够成功执行</p>
+<p>于是问题产生了，我们可以很明显的发现缓冲区当中的数据和我们开始的数据并不一样。但为什么也能够正常执行？</p>
+<p>使用 URH 进行观察，我们用 URH 捕获 esp32 重放的信号。发现它是这样子的</p>
+<p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316010156622.png"></p>
+<p>那么通过观察我们可以发现 这三段信号都不一样。为什么都能够触发设备？</p>
+<h1 id="zpJN9">三.研究过程</h1>
+分别分析三段信号，以下按照如上文章顺序我们分别命名为 原始信号，esp32 接收信号，esp 32 发出信号
+
+<pre><code class="language-plain">8e88eeee88ec747747774774
+8e88eeee88ee8e8ee8eee8ee8
+8e88eeee88ee8e8ee8eee8ee8
+8e88eeee88ee8e8ee8eee8ee8
+8e88eeee88ee8e8ee8eee8ee8
+8e88eeee88ee8e8ee8eee8ee8
+8e88eeee88ee8e8ee8eee8ee8
+8e88eeee88ee8e8ee8eee8ee8
+8e88eeee88ee8e8ee8eee8ee8
+8e88eeee88ee8e8ee8eee8ee8
+8e88eeee88ee8e8ee8eee8ee8
+8e88eeee88ee8e8ee8eee8ee8
+8e88eeee88ee8e8ee8eee8ee8
+8e88eeee88ee8e8ee8eee8ee8
+8e88eeee88ee8e8ee8eee8ee8
+8e88eeee88ee8e8ee8eee8ee
+</code></pre>
+<pre><code class="language-plain">800000008E007777447FA3A3BA3BFD1DD000000010E88EEEE8C7747477C3BBA3BA000000011D11DDFE88EE8E8F747774774000000023A23DDDD11DD1F8EE8EEE8F74000000047403BBBA23FC1D1DD1DDE0EE8000000087447777447BA3A3BA3DDD1DD000000008E88EEEF847747477A3BBA3BA000000011D11DFEE88EE8F877477747FA000000023A21DDDD11DF0E8EE8EEE8774000000047823BBBA23DD1D1DD1FEE8EE80000000C7447777423BA3A3BE1DDD1DD000000008E88EFFF44774747BA3BBA3BC000000011D11EEEE88EE8FC77477747BA000000023801DDDD11FE8E8EE8FFF4774000000043A23BBBA01DD1D1DD0EEE8EE80000000474477FFA23BA3A3DD1DDD1DE  
+</code></pre>
+<pre><code class="language-plain">8e8077774477c3a3ba3bbe1dd
+8f047777447ba3a3ba3fdd1dd
+8e88eeee047747477c3bba3ba
+8e88eeffa23ba3a3dd1ddd1df
+8e88f777447747a3ba3bba3dd
+8e807777447ff1d1dd1ddf8ee8
+87447777447ba3a3ba3fdd1dd
+8e88eeef847747477c3bba3ba
+8e88eeff44774747ba3bba3ba
+8e88ff77447747c3ba3bba3fd
+8e887777447747a3ba3bbc774
+8eeeee88ff47477477fa3ba
+87447777443ba3a3ba3ddd1dd
+8e88eeef047747477e3bba3ba
+8e88eff744774747ba3bba3bf
+8e88f777447747a3ba3bba3fc
+</code></pre>
+<p>来比较他们的异同，可以发现一些有趣的情况</p>
+<ol start="2">
+<li><strong>共同部分与差异分析</strong></li>
+</ol>
+<ul>
+<li><strong>共同特征</strong>：在所有三段信号中，都能找到一些类似的字节序列，例如 <code>8e88</code>, <code>eeee</code>, <code>7747</code>, 以及 <code>ba3b</code>。这些序列可能是信号中用来识别的关键特征。</li>
+<li><strong>差异</strong>：在每一段信号中，存在大量的变化和不同之处，尤其是在中间部分。这些差异可能是由于信号存储设备的处理方式不同，或者是由于设备在不同时间接收到的信号有所不同。</li>
+</ul>
+<ol start="3">
+<li><strong>关键部分识别</strong></li>
+</ol>
+<ul>
+<li><strong>核心部分可能性</strong>：<ul>
+<li>在第一段信号中，<code>8e88eeee88ee8e8ee8eee8ee8</code> 这一部分反复出现，并且在最后一行 <code>8e88eeee877474774777477</code> 中的 <code>8e88eeee</code> 和 <code>7747</code> 出现频率较高，这表明这一部分可能是触发门铃的关键部分。</li>
+<li>第二段信号中的 <code>8e88eeee047747477c3bba3ba</code> 和第三段信号中的 <code>8e88eeee8C7747477C3BBA3BA</code> 也都包含类似的 <code>8e88</code> 和 <code>7747</code>，这进一步表明这些序列可能是关键。</li>
+</ul>
+</li>
+</ul>
+<p>可以发现不管是哪一段信号当中都出现有 <code>8E88EEEF</code> 和 <code>84774747</code>，那么这是否意味着<code>8E88EEEF</code> 和 <code>84774747</code> 就是触发门铃信号的关键？</p>
+<p>可以做个简单的实验。仿照esp32接收信号的格式，我们生成一段新的随机字符串</p>
+<pre><code class="language-plain">800000008E88EFFF84774747C3BBA3BA000000011D11DFEE88EE8F877477747FA000000023A21D
+DDD11DF0E8EE8EEE8774000000047823BBBA23DD1D1DF8EE8EEE8F74000000047403BBBA23FC1
+D1DD1DDE0EE8000000087447777447BA3A3BA3DDD1DD000000008E8 8EEEF84774747C3BBA3B
+A000000011D11DFEE88EE8F877477747FA000000023A21DDDD11DF0E8EE8EEE877400000004782
+3BBBA23DD1D1DF8EE8EEE8F74000000047403BBBA23FC1D1DD1DDE0EE80000000C7447777423
+BA3A3BE1DDD1DD000000008E88EFFF84774747BA3BBA3BC000000011D11EEEE88EE8FC7747774
+7BA000000023801DDDD11FE8E8EE8FFF4774000000043A23BBBA01DD1D1DD0EEE8EE800000004
+74477FFA23BA3A3DD1DDD1DE
+</code></pre>
+<p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316010200841.png"></p>
+<p>可以发现触发成功</p>
+<p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316010202646.png"></p>
+<h1 id="rv6jm">四.结论</h1>
+通过我们实验可以发现`8E88EEEF` 和 `84774747`就是触发设备的核心部分。那么为什么在不同的数据当中会有如此之多的不同数据出现？
+
+<p>这就涉及到了无线信号的冗余和容错机制。</p>
+<p>由于在现实生活当中存在非常多的干扰不能够完全的确保发送的无线电信号能够正确的被接收端接收到，因此我们需要冗余和容错机制。</p>
+<ul>
+<li><strong>冗余编码</strong>：许多无线设备发送信号时都会加入大量冗余数据，以增强信号在噪声或干扰环境中的可靠性。这些冗余数据使得即使信号在某些部分发生了改变或丢失，接收设备仍然能够正确识别。</li>
+<li><strong>容错能力</strong>：门铃的接收器可能有一定的容错能力，只要收到的信号大致匹配，就会触发门铃。因此，虽然两个信号在细节上有差异，但只要它们在某些关键特征上符合预期，就能成功触发门铃。</li>
+<li><strong>信号帧结构</strong>：有些无线设备的信号由多个帧组成，每个帧包含控制信息、数据部分和校验信息。即使不同设备对这些帧的解析结果不同，只要接收器能够正确识别某些帧，就能触发动作。</li>
+</ul>
+<p>通过上述一系列实验，那么我们可以得到一个对无线电协议分析的一个结论。在研究无线电信号协议的时候一个目的就是找到无线电信号当中信号的一个有效的部分</p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 ch0en3&#39;s blog
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;ch0en3
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>

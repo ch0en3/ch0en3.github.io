@@ -1,0 +1,354 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>一次无线电分析经历 | ch0en3&#39;s blog</title>
+    <meta name="author" content="ch0en3" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="hacker/geeker" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="ch0en3's blog" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>CH0EN3&#39;S BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;CH0EN3&#39;S BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>一次无线电分析经历</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/3/16
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E6%97%A0%E7%BA%BF%E7%94%B5%E5%AE%89%E5%85%A8%E5%85%A5%E9%97%A8/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                无线电安全入门
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E6%97%A0%E7%BA%BF%E7%94%B5%E5%AE%89%E5%85%A8%E5%85%A5%E9%97%A8/" style="color: #00bcd4">
+                    无线电安全入门
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h3 id="nL9lG">利用URH的步骤</h3>
+
+<ol>
+<li>记录信号</li>
+<li>信号说明</li>
+<li>信号分析</li>
+</ol>
+<p>首先找到通过URH自带的频谱分析器寻找到系统通信的中心频率。</p>
+<p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316011842426.png"></p>
+<p>找到中心频率后利用记录信号工具捕获信号。urh可以记录从sdr中捕获的原始音频信号。</p>
+<p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316011844967.png"></p>
+<p><font style="color:rgb(13, 13, 13);">过放大捕获的音频信号并观察清晰的正弦波形以及非平凡的模式，可以验证捕获很可能是正确的</font></p>
+<p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316011847379.png"></p>
+<p>一旦信号被捕获到就可以利用URH的发送信号工具进行重播</p>
+<p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316011849682.png"></p>
+<h2 id="w1KdN">逆向工程RF协议</h2>
+<font style="color:rgb(13, 13, 13);">所讨论的系统使用 RF 信号在设备之间进行无线通信。这些无线电波用于在每个设备之间传输二进制数据，即 0 和 1。通过无线电波传输二进制数据的过程称为调制 。</font>
+
+<p><font style="color:rgb(13, 13, 13);">有三种主要的简单调制二进制信号的方式：幅度键控 (ASK)、频率键控 (FSK) 和相位键控 (PSK)。它们分别产生不同的波形，可以很容易地通过视觉识别。如图所示。</font></p>
+<p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316011852263.png"></p>
+<p><font style="color:rgb(13, 13, 13);">每种技术都使用正弦波的不同属性来分别编码零和一。幅度键控 (ASK) 使用波的振幅，其中较高的振幅通常编码为 1，较低的振幅编码为 0。频率键控 (FSK) 则保持振幅和相位不变。而是在两个不同的频率之间进行切换以区分 0 和 1。最后，相位键控 (PSK) 使用相位变化来区分这两个符号。</font></p>
+<p><font style="color:rgb(13, 13, 13);">解调是将调制信号转换回原始二进制数据的过程。在 RF 通信的大多数实际应用中，这是直接在硬件中完成的，使用专门的无线电接收器和电路自动将信号转换回二进制数据 。通常，该硬件还实现了错误校正、噪声过滤和其他技术，以增加通信的可靠性，因为干扰和其他干扰在现实世界中是不可避免的。</font></p>
+<p><font style="color:rgb(13, 13, 13);"></font></p>
+<p><font style="color:rgb(13, 13, 13);">urh可以自动解调，但是很多时候无法找到正确的调制参数。因此我们可以使用audacity进行手动解调。</font></p>
+<p><font style="color:rgb(13, 13, 13);">解调的步骤如下：</font></p>
+<ol>
+<li><font style="color:rgb(13, 13, 13);">将 URH 捕获的原始信号数据通过菜单选项文件 - 导入 - 原始数据导入到 Audacity 中。URH 将信号保存为有符号 8 位字节的原始 IQ 数据。通过选择编码为有符号 8 位 PCM 的 2 通道 (立体声)，可以将数据的 I 和 Q 组件分开并导入到两个单独的轨道中。在这种情况下，仅使用其中一个足以提取信息。因此，在 Audacity 中，将立体声轨道拆分为两个单声道轨道，然后删除第二个轨道。导入选项的其余部分并不重要。</font></li>
+<li><font style="color:rgb(13, 13, 13);">其次，记录 Audacity 感知到的中心频率。可以通过菜单选项分析 - 绘制频谱来找到这一点。注意，由于样本率等多个特征不是原始信号数据的一部分，因此此频率可能不等于实际的 868.64 MHz 的中心频率。在下面的步骤中使用了这个频率。</font></li>
+<li><font style="color:rgb(13, 13, 13);">对第一个轨道应用高通滤波器，并对第二个轨道应用低通滤波器，将滚降值设置为 48 dB。前者基本上将较高的频率映射到输出波中的较高振幅，后者则相反。</font></li>
+<li><font style="color:rgb(13, 13, 13);">使用 Audacity 的脚本语言 Nyquist 对每个轨道应用绝对值。使用了简短的 Nyquist 程序 (s-abs </font><em><font style="color:rgb(13, 13, 13);">track</font></em><font style="color:rgb(13, 13, 13);">) 来实现。然后对两个轨道应用了低通滤波器，计算了信号的包络。最后，对最初应用了低通滤波器的轨道进行了反转。这意味着现在两个轨道分别对应于原始信号的高频和低频部分。</font></li>
+<li><font style="color:rgb(13, 13, 13);">接下来，将两个轨道混合到一起形成一个新轨道，即将信号相加。</font></li>
+<li><font style="color:rgb(13, 13, 13);">将混合轨道放大到尽可能高的程度，并启用剪切，以创建一个二进制信号。这创建了最终信号，即从原始信号解调出的原始二进制信号。</font></li>
+<li><font style="color:rgb(13, 13, 13);">最后，将最终的二进制波形导出为原始数据到文件中。通过选择最终轨道并使用菜单选项文件 - 导出 - 导出所选音频 来完成。在随后的文件对话框中，选择”其他未压缩文件”作为类型，并选择无标题 (例如 RAW)，并选择有符号 8 位 PCM 编码。这样就可以将信号导出为原始二进制振幅数据，表示为有符号字节。</font></li>
+</ol>
+<p><font style="color:rgb(13, 13, 13);"></font></p>
+<p><font style="color:rgb(13, 13, 13);">这就是解调信号的过程</font></p>
+<p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316011854887.png"></p>
+<p>经过此过程的结果是一个二进制波形而不是一段实际的二进制数据,因此编写了一个简单的python程序用于提取</p>
+<pre><code class="language-c">import matplotlib.pyplot as plt
+SIGNAL_LEN, SYMBOL_LEN = 34000, 200
+FILE, SIGNAL_OFFSETS = &quot;door-signal.raw&quot;, [1800, 856160, ...]
+with open(FILE, &quot;rb&quot;) as f:
+signal = [b if b &lt; 128 else b - 256 for b in f.read()]
+for i, offset in enumerate(SIGNAL_OFFSETS):
+xs = range(offset, offset + SIGNAL_LEN, SYMBOL_LEN)
+plt.scatter(xs, [0 for _ in xs], c=&quot;red&quot;)
+bits = &quot;&quot;.join([&#39;1&#39; if signal[x] &gt; 0 else &#39;0&#39; for x in xs])
+print(f&quot;Packet &#123;str(i).ljust(2)&#125; =&quot;, hex(int(bits, 2)))
+plt.plot(signal)
+plt.show()
+</code></pre>
+<p><font style="color:rgb(13, 13, 13);">该程序期望一个 x 轴偏移值列表，其中包含信号的第一个比特位。这些值是手动找到的，通过手动查看程序创建的图来实现。信号长度和符号长度也是手动测量的，但这些对于所有捕获的信号来说是恒定的。只需手动推导出每个信号的信号起始偏移量，这相当耗时。因此，这个过程仅应用于少数信号，直到收集到足够的信息来对协议做出结论。</font></p>
+<p><font style="color:rgb(13, 13, 13);"></font></p>
+<p><font style="color:rgb(13, 13, 13);">通过使用 Audacity 和描述的方法，从每个记录的信号中提取了二进制数据。这些数据以十六进制形式呈现在表中。分析数据后可以看到一个非常清晰的结构。所有记录的信号解码后都恰好为 170 位，并且始终具有以下结构。</font></p>
+<p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316011858946.png"></p>
+<ol>
+<li><font style="color:rgb(42, 43, 46);">1和0交替的序文。这是射频协议中非常常见的技术，用于通知传入信号并同步时钟频率</font></li>
+<li><font style="color:rgb(42, 43, 46);">对于每个设备都是恒定的字节序列。例如，门传感器将始终发送相同的字节序列，摄像机将发送另一个字节序列，等等。这对应于一个同步字，它经常在射频协议中发现，用于确定协议类型或消息来自哪个设备。据推测，这是某种ID，用于告诉主面板该消息来自哪个外设。</font></li>
+<li><font style="color:rgb(13, 13, 13);">一系列零位。据推测，这是同步字的一部分。这也是 RF 协议中常见的技术，用于让接收器知道这是什么协议，以及有效载荷数据从何处开始。</font></li>
+<li><font style="color:rgb(42, 43, 46);">一串看似随机的比特，可能是有效载荷</font></li>
+</ol>
+<p><font style="color:rgb(147, 149, 153);"></font></p>
+<p><strong>门防拆传感器开启</strong></p>
+<ul>
+<li><font style="color:rgb(13, 13, 13);">0xaaaaaaaa29cd29cd0a000015d477e072b922530064</font></li>
+<li><font style="color:rgb(13, 13, 13);">0xaaaaaaaa29cd29cd0a0000028648b07e291d2ceecc</font></li>
+<li><font style="color:rgb(13, 13, 13);">0xaaaaaaaa29cd29cd0a0000280b9d2e1d2d2ca7f31c</font></li>
+<li><font style="color:rgb(13, 13, 13);">0xaaaaaaaa29cd29cd0a00002548c662f2feeea7fe22</font></li>
+<li><font style="color:rgb(13, 13, 13);">0xaaaaaaaa29cd29cd0a000019201db301398d538674</font></li>
+<li><font style="color:rgb(13, 13, 13);">0xaaaaaaaa29cd29cd0a00000806d6a5ee37481e2f76</font></li>
+</ul>
+<p><strong>门防拆传感器关闭</strong></p>
+<ul>
+<li><font style="color:rgb(13, 13, 13);">0xaaaaaaaa29cd29cd0a0000102366a5cb78d61c0d0c</font></li>
+<li><font style="color:rgb(13, 13, 13);">0xaaaaaaaa29cd29cd0a00000a3b2cb0867bf62aa616</font></li>
+<li><font style="color:rgb(13, 13, 13);">0xaaaaaaaa29cd29cd0a000028fe2271f089a9e8c984</font></li>
+<li><font style="color:rgb(13, 13, 13);">0xaaaaaaaa29cd29cd0a00001e23195bcbe8c65107ec</font></li>
+<li><font style="color:rgb(13, 13, 13);">0xaaaaaaaa29cd29cd0a00001913b1ee7e3448da1cf0</font></li>
+<li><font style="color:rgb(13, 13, 13);">0xaaaaaaaa29cd29cd0a000006f69dbb732deb2a120c</font></li>
+</ul>
+<p><strong>摄像头防拆传感器开启</strong></p>
+<ul>
+<li><font style="color:rgb(13, 13, 13);">0x155555554539a539a14000034164758f44cfae66f1</font></li>
+<li><font style="color:rgb(13, 13, 13);">0x155555554539a539a14000034164758f44cfae66f1</font></li>
+<li><font style="color:rgb(13, 13, 13);">0x155555554539a539a14000034164758f44cfae66f1</font></li>
+<li><font style="color:rgb(13, 13, 13);">0x155555554539a539a14000034164758f44cfae66f1</font></li>
+<li><font style="color:rgb(13, 13, 13);">0x155555554539a539a14000034164758f44cfae66f1</font></li>
+<li><font style="color:rgb(13, 13, 13);">0x155555554539a539a14000034164758f44cfae66f1</font></li>
+</ul>
+<p><strong>摄像头防拆传感器关闭</strong></p>
+<ul>
+<li><font style="color:rgb(13, 13, 13);">0x155555554539a539a140000342724d66fce053d3d7</font></li>
+<li><font style="color:rgb(13, 13, 13);">0x155555554539a539a140000342724d66fce053d3d7</font></li>
+<li><font style="color:rgb(13, 13, 13);">0x155555554539a539a140000342724d66fce053d3d7</font></li>
+<li><font style="color:rgb(13, 13, 13);">0x155555554539a539a140000342724d66fce053d3d7</font></li>
+<li><font style="color:rgb(13, 13, 13);">0x155555554539a539a140000342724d66fce053d3d7</font></li>
+<li><font style="color:rgb(13, 13, 13);">0x155555554539a539a140000342724d66fce053d3d7</font></li>
+</ul>
+<p><font style="color:rgb(13, 13, 13);">然而，payload 显然被加密或至少以某种方式混淆了。实际方法是什么，以及它是否是一个加密安全的方法，这些问题都没有答案。加密可能很弱。在没有固件或关于 RF 协议的其他文档的情况下进一步的逆向工程几乎是不可能的。</font></p>
+<h3 id="sgsxl"><font style="color:rgb(13, 13, 13);">RF 干扰攻击</font></h3>
+<font style="color:rgb(13, 13, 13);">无线电频谱是用于无线通信的介质。它本质上容易受到干扰攻击的影响。这可以类比于 RF 版本的 DoS 攻击。对 RF 通信进行干扰攻击涉及将电磁能量定向到一个或多个无线电频率，以干扰或阻止两个系统之间的信号传输。在实践中，这意味着在特定频率上发送信号，携带足够的能量来击败在相同频段传输的任何人。通过持续发送信号，使无线频段充满，可以阻止合法的流量。</font>
+
+<p><font style="color:rgb(13, 13, 13);">由于 RF 通信使用共享介质，因此这是一种非常难以防范的攻击。通常，系统将在单一固定频率上进行通信，这可能使系统特别容易受到干扰攻击。尽管已经开发出许多复杂的技术来检测干扰，但检测和报告仅限于系统对干扰攻击的反应程度。通常情况下，除了可能切换频率带或切换到备用通信模式外，很少能做其他事情。</font></p>
+<h4 id="DcPZp"><font style="color:rgb(13, 13, 13);">方法</font></h4>
+<font style="color:rgb(13, 13, 13);">为了发送信号，使用了 HackRF SDR。它被放置在系统附近，距离在 10-20 厘米之间。使用了开源程序 GnuRadio Companion。这是一个图形工具，用于控制 SDR。它基于创建连接组件的流图，用于接收、处理、修改和发送来自和到 SDR 的实时无线电信号。</font>
+
+<p><font style="color:rgb(13, 13, 13);">为了生成噪声信号，在 GnuRadio Companion 中创建了一个流图，如图所示。</font></p>
+<p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316011901996.png"></p>
+<p><font style="color:rgb(13, 13, 13);">首先，使用快速噪声发生器作为源信号。然后将噪声输出链接到低通滤波器，以将信号集中到感兴趣的特定频率带。最后，将输出发送到 HackRF 通过 osmocom Sink 块。此外，低通滤波器的输出还发送到一个 QT GUI 频率接收器，以在执行攻击时可视化呈现发送信号数据。</font></p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 ch0en3&#39;s blog
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;ch0en3
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>

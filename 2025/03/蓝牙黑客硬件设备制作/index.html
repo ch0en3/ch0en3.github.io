@@ -3,7 +3,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8" />
-    <title>Tags | ch0en3&#39;s blog</title>
+    <title>Nrfbox-蓝牙黑客硬件设备制作 | ch0en3&#39;s blog</title>
     <meta name="author" content="ch0en3" />
     <meta name="description" content="" />
     <meta name="keywords" content="hacker/geeker" />
@@ -37,6 +37,10 @@
 
 
 <script src="/js/lib/preview.js"></script>
+
+
+
+
 
 
 
@@ -151,67 +155,78 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div id="archives">
-    
-    <div class="categories-tags">
-        
-        
-        
-        <span>
-            <a href="/tags/%E6%97%A0%E7%BA%BF%E7%94%B5%E5%AE%89%E5%85%A8%E5%85%A5%E9%97%A8/" style="background: #00a596">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                无线电安全入门
-            </a>
+            <div class="article">
+    <div>
+        <h1>Nrfbox-蓝牙黑客硬件设备制作</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/3/16
         </span>
         
-        
-        
-        <span>
-            <a href="/tags/hexo/" style="background: #ff7d73">
+        <span class="category">
+            <a href="/categories/bluetooth/">
                 <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                hexo
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/carhack/" style="background: #ffa2c4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                carhack
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/bluetooth/" style="background: #00a596">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
                 bluetooth
             </a>
         </span>
         
         
-        
-        <span>
-            <a href="/tags/%E7%A1%AC%E4%BB%B6%E9%BB%91%E5%AE%A2/" style="background: #00bcd4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                硬件黑客
-            </a>
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/bluetooth/" style="color: #00bcd4">
+                    bluetooth
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%A1%AC%E4%BB%B6%E9%BB%91%E5%AE%A2/" style="color: #03a9f4">
+                    硬件黑客
+                </a>
+            </span>
+            
         </span>
         
-        
     </div>
+    
+    <div class="content" v-pre>
+        <p>该工具出自<a target="_blank" rel="noopener" href="https://cifertech.net/nrfbox-your-all-in-one-gadget-for-ble-and-2-4ghz-networks/">https://cifertech.net/nrfbox-your-all-in-one-gadget-for-ble-and-2-4ghz-networks/</a></p>
+<p>个人对这款工具做了一些小小的改进，增加了中继部分的功能。代码就不放了如果有感兴趣的师傅想要复现的可以私下交流</p>
+<p>复现问题应该主要出现在硬件制作层面，这边分享一下我买的器件表。他提供的 bom 表在嘉立创很难找到合适的 需要自己去配<img src="https://cdn.nlark.com/yuque/0/2024/jpeg/29413051/1729504365510-dff9d908-f56a-46c0-b44a-8d3d4327558c.jpeg"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/jpeg/29413051/1729504366996-41547067-9169-44c7-a954-ff6153e7a93e.jpeg"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/jpeg/29413051/1729504368429-c2f6e72c-c27b-457b-a3d0-4c6ea69c7adb.jpeg"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/jpeg/29413051/1729504369895-88554f1e-663d-4077-aaf3-8c7dbf8a4db3.jpeg"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/jpeg/29413051/1729504371237-1be0c917-3731-4a34-b2d0-39b72e16c18e.jpeg"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/jpeg/29413051/1729504372816-9d1c9f27-bb30-4f16-ac3f-a25578009867.jpeg"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/jpeg/29413051/1729504374432-b7a9b241-13d1-4fa6-8e2e-5113bbe1a4a5.jpeg"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/jpeg/29413051/1729504375993-d7d51e07-e63e-4855-a615-8b122c1f758a.jpeg"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/jpeg/29413051/1729504377593-b61a2b97-df0d-4bac-91dc-1b82d6e9efd5.jpeg"></p>
+<p>然后的话就是焊接的问题</p>
+<p>主要多注意芯片和显示屏的引脚，因为引脚比较密所以很容易短路</p>
+<p>一些成品照片</p>
+<p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316014221734.jpg" alt="36516482af4a94d6535d46997aafd19"></p>
+<p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316014227301.jpg" alt="0af1b8325780dcbfeb562ed4f2c62ae"></p>
+<p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316014230952.jpg" alt="f2f6989be1e77e4ef384f664891fbce"></p>
+
+    </div>
+    
+    
+    
+    
+    
+    
     
 </div>
 
@@ -243,6 +258,12 @@
         
     </div>
     <script src="/js/main.js"></script>
+    
+    
+
+
+
+
     
 </body>
 </html>
