@@ -1,0 +1,360 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>硬件黑客-Pwnagotchi | ch0en3&#39;s blog</title>
+    <meta name="author" content="ch0en3" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="hacker/geeker" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="ch0en3's blog" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>CH0EN3&#39;S BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;CH0EN3&#39;S BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>硬件黑客-Pwnagotchi</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/3/16
+        </span>
+        
+        <span class="category">
+            <a href="/categories/wifi/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                wifi
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/hardware/" style="color: #00a596">
+                    hardware
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/wifi/" style="color: #03a9f4">
+                    wifi
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h1 id="beN5t">介绍</h1>
+
+<p>Pwnagotchi是一个基于a2c的“ai”，由bettercap提供支持，它从周围的WiFi环境中学习，以最大限度地获取可破解的WPA密钥材料(通过被动嗅测或执行去认证和关联攻击)。这些资料以PCAP文件的形式收集在磁盘上，包含hashcat支持的任何形式的可破解握手，包括完整的和一半的WPA握手以及PMKIDs。</p>
+<p>简单点说的话它就是一个可以帮助你捕获破解wifi所需要握手包的工具（其实重点在它像个电子宠物一样</p>
+<h2 id="dGmid">工作原理</h2>
+只需要知道它可以进行深度学习就行，但是有一点不一样的地方是。它与通常的强化学习模拟不同，Pwnagotchi实际上是在人类的时间尺度上学习的，因为它是与现实世界的环境互动，而不是一个定义良好的虚拟环境(比如玩超级马里奥)。一幅画的时间是用年代来衡量的;一个epoch可以持续几秒到几分钟，这取决于有多少接入点和客户端站可见。
+
+<p>不要期望你的Pwnagotchi在一开始就表现得非常好，因为它将探索几个关键参数的组合，以确定在开始阶段对特定环境的理想调整。但当你的Pwnagotchi告诉你它很无聊的时候，一定要听!把它带到新的WiFi环境中，让它观察新的网络，捕捉新的握手——你会看到的。：）</p>
+<p>随着时间的推移，两个或更多的Pwnagotchi单位一起训练，将学会合作，通过分配可用的频道来探测彼此的存在。（有点类似于边缘计算</p>
+<h2 id="YKAWo">攻击原理</h2>
+在连接到无线接入点的客户端设备(例如，连接到家庭WiFi网络的手机)能够安全地传输和接收来自该接入点的数据之前，需要进行一个称为4次握手的过程，以便生成WPA加密密钥。这个过程包括在客户端设备和AP之间交换四个数据包;它们用于从接入点的WiFi密码中获得会话密钥。一旦成功交换了数据包并生成了密钥，客户端设备就可以通过身份验证，并开始向无线AP发送和接收数据包(现在通过加密保护)。
+
+<p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316125053971.png"></p>
+<p>问题出在四次握手的过程中，这四个握手包很容易被嗅探。一旦记录下来就可以使用字典或者暴力破解握手包并恢复原始wifi密钥。而在实战中我们甚至不需要全部4个握手包，只有一半即两个也可以以破解。在大多数情况下即使没有连接一个握手包就足够了。</p>
+<h1 id="BdRNZ">硬件要求</h1>
+1. 一个树莓派zero w
+2. 至少8gb以上的内存的SD卡
+3. 移动电源供电（可以用充电宝也可以买专门为树莓派zero设计的ups-lite
+4. 一块水墨屏 waveshare 2.13
+5. 一条结实可靠的micro usb数据线
+
+<p>均可以在淘宝上购买</p>
+<h3 id="nQLy9">如何安装</h3>
+[https://pwnagotchi.ai/installation/#flashing-an-image](https://pwnagotchi.ai/installation/#flashing-an-image)
+
+<p>最方便的方式就是使用官方提供的镜像，使用<a target="_blank" rel="noopener" href="https://www.balena.io/etcher/">https://www.balena.io/etcher/</a>进行写入</p>
+<p>安装步骤如下</p>
+<ol>
+<li>下载镜像文件</li>
+<li>下载 balenaetcher并且安装</li>
+<li>连接好读卡器</li>
+<li>打开balenaetcher选择树莓派镜像</li>
+<li>写入卡中</li>
+</ol>
+<details class="lake-collapse"><summary id="uf207c31d"><span class="ne-text">这里记录一下踩坑的一些点</span></summary><p id="udc0ca7be" class="ne-p"><span class="ne-text">在淘宝上买屏幕我们买的是v3版本的，在官方镜像中不兼容。所以建议下载1.56 beta版本的镜像</span></p><p id="ua0de47c1" class="ne-p"><a href="https://github.com/DrSchottky/pwnagotchi/releases" data-href="https://github.com/DrSchottky/pwnagotchi/releases" target="_blank" class="ne-link"><span class="ne-text">https://github.com/DrSchottky/pwnagotchi/releases</span></a></p><p id="u95221cc7" class="ne-p"><span class="ne-text"></span></p><p id="u5eba149c" class="ne-p"><span class="ne-text">关于如何安装带有v3屏幕的pwnagochi这里是教程</span></p><p id="u879b6f08" class="ne-p"><a href="https://pwnsec.io/how-to-make-a-pwnagotchi-in-2022-with-a-waveshare-v3-screen/" data-href="https://pwnsec.io/how-to-make-a-pwnagotchi-in-2022-with-a-waveshare-v3-screen/" target="_blank" class="ne-link"><span class="ne-text">https://pwnsec.io/how-to-make-a-pwnagotchi-in-2022-with-a-waveshare-v3-screen/</span></a></p><p id="u09082f7f" class="ne-p"><br></p><p id="u5f59b89a" class="ne-p"><span class="ne-text">省流版本的话就是在安装1.56版本的镜像后把config.toml的内容更改为</span></p><p id="ud17ff7bc" class="ne-p"><span class="ne-text">main.name = “NameOfYourPwnagotchi”<br /></span><span class="ne-text">main.lang = “en”<br /></span><span class="ne-text">main.whitelist = [<br /></span><span class="ne-text">“YourWifiYouDontWantToSniff”<br /></span><span class="ne-text">]</span></p><p id="uebcbe049" class="ne-p"><span class="ne-text">main.plugins.grid.enabled = false<br /></span><span class="ne-text">main.plugins.grid.report = false<br /></span><span class="ne-text">main.plugins.grid.exclude = [<br /></span><span class="ne-text">“YourHomeNetworkHere”<br /></span><span class="ne-text">]</span></p><p id="ud23ee860" class="ne-p"><span class="ne-text">ui.display.enabled = true<br /></span><span class="ne-text">ui.display.type = “waveshare_3”<br /></span><span class="ne-text">ui.display.color = “black”</span></p><p id="u86745c63" class="ne-p"><span class="ne-text">personality.advertise = false<br /></span><span class="ne-text">personality.deauth = false</span></p></details>
+
+
+
+
+
+
+<p>以上是装在树莓派zero w中的。这是linux版本教程</p>
+<p><a target="_blank" rel="noopener" href="https://pwnagotchi.ai/installation/#installing-on-any-gnu-linux">https://pwnagotchi.ai/installation/#installing-on-any-gnu-linux</a></p>
+<h3 id="H6kAV">安装完后的配置</h3>
+在安装好镜像后需要做的第一件事情是进行配置。通过读卡器在SD卡boot目录下面新建一个config.toml文件。然后输入以下内容
+
+<pre><code class="language-python">main.name = &quot;pwnagotchi&quot;
+main.lang = &quot;en&quot;
+main.whitelist = [
+  &quot;EXAMPLE_NETWORK&quot;,
+  &quot;ANOTHER_EXAMPLE_NETWORK&quot;,
+  &quot;fo:od:ba:be:fo:od&quot;,
+  &quot;fo:od:ba&quot;
+]
+
+main.plugins.grid.enabled = true
+main.plugins.grid.report = true
+main.plugins.grid.exclude = [
+  &quot;YourHomeNetworkHere&quot;
+]
+
+ui.display.enabled = true
+ui.display.type = &quot;waveshare213d&quot;
+ui.display.color = &quot;black&quot;
+</code></pre>
+<p>接着把micro usb线连接上电脑</p>
+<p>注意！这里很有可能出现连接电脑后识别不出的情况，这是因为在正常情况下windows系统会把rndis识别成串口，我们需要做的是打上驱动</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/baidu_32237719/article/details/78189144">https://blog.csdn.net/baidu_32237719&#x2F;article&#x2F;details&#x2F;78189144</a></p>
+<p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316125103412.png"></p>
+<p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316125101186.png"></p>
+<p>安装成功</p>
+<h1 id="kSWXR">如何使用</h1>
+<h2 id="FGFtx">模式介绍</h2>
+**MANU模式**
+
+<p>在连接到设备usb数据接口的情况下它将以手动模式启动，它能够读取一些日志文件并在屏幕上统计数据。这是当想要从单位传输数据时候应该使用的模式</p>
+<p><strong>AUTO模式</strong></p>
+<p>如果在只连接usb电源端口的情况下这是设备默认启动的模式。例如只有连接段源码却没有连接到电脑数据端口上时。自动模式下单位将自动开始操作执行攻击</p>
+<p><strong>AI模式</strong></p>
+<p>如果你在默认配置中启动了ai模式，auto模式将在几分钟后转换为ai（它的转换时间取决于sd卡的读取速度）。这段时间被用于加载ai模块所使用的所有依赖并且初始化神经网络。一旦依赖被加载，即&#x2F;root&#x2F;brain.nn文件会被唤醒，ai模式将自动选择最佳的参数集。这取决于它训练了多长时间</p>
+<h2 id="pwHAj">ui</h2>
+如果通过usb0连接到设备并在网络接口上设置了静态地址。在默认情况下它的地址是[http://pwnagotchi.local:8080/](http://pwnagotchi.local:8080/)
+
+<p>它的默认用户名和密码都是changeme，如果你想要把它更改为自己的名字可以在config.toml中更改</p>
+<h3 id="WZDpd">墨水屏配置和详细解读</h3>
+![](https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316125110613.png)
+
+<ul>
+<li><strong>CH</strong>:这显示的是当前运行的channel，当在所有通道上执行嗅探和跳频时候它将显示*而不是一个具体的数字。它在嗅探的时候会收集每个频道上的ap数量。</li>
+<li><strong>AP</strong>:显示的是当前信道上的接入点数量，括号中显示了所有通道的可见访问点总数（根据最后一次嗅探的信道</li>
+<li><strong>UP</strong>:设备的正常运行时间，自上次重新启动以来。格式为hh:mm:ss。</li>
+<li><strong>PWND</strong>:在当前会话中捕获的握手次数。括号中显示的是pwnagochi从安装开始至少握手过唯一ssid的数量，花括号中显示的是pwnagochi最近一次进行握手的ssid</li>
+<li><strong>MODE</strong>:表示pwnagochi当前以什么模式进行运行<ul>
+<li><strong>MANU</strong></li>
+<li>这种模式适合更新和备份你的单位和使用bettercap的web UI。</li>
+<li>Pwnagotchi在手动模式下不会嗅或捕捉握手。</li>
+<li>陷入手动模式?打开未连接USB网线的设备。</li>
+<li><strong>AUTO</strong></li>
+<li>在这种模式下Pwnagotchi仍然会嗅探并捕获握手;它主要是功能性的——自动模式和人工智能模式之间的主要区别是，它的行动是由静态算法决定的，而不是由人工智能决定Pwnagotchi应该做什么来获得最佳pwnage。</li>
+<li>一旦AI依赖项被引导并且神经网络完成加载，这就消失了。(按RPi0W计算，这个过程大约需要20-30分钟。)</li>
+<li>如果你在没有启用AI的情况下运行Pwnagotchi，这是你将保持的模式。</li>
+<li><strong>AI</strong></li>
+<li>一旦出现了这样标识就表明pizerow准备好开始训练了</li>
+</ul>
+</li>
+</ul>
+<p>成品展示</p>
+<p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316125116406.jpg" alt="Image_7140246746598"></p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 ch0en3&#39;s blog
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;ch0en3
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>

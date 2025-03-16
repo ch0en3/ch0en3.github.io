@@ -6,7 +6,7 @@
   <link href="https://ch0en3.github.io/atom.xml" rel="self"/>
   
   <link href="https://ch0en3.github.io/"/>
-  <updated>2025-03-16T04:34:03.857Z</updated>
+  <updated>2025-03-16T04:51:22.411Z</updated>
   <id>https://ch0en3.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>硬件黑客-Pwnagotchi</title>
+    <link href="https://ch0en3.github.io/2025/03/%E7%A1%AC%E4%BB%B6%E9%BB%91%E5%AE%A2-Pwnagotchi/"/>
+    <id>https://ch0en3.github.io/2025/03/%E7%A1%AC%E4%BB%B6%E9%BB%91%E5%AE%A2-Pwnagotchi/</id>
+    <published>2025-03-16T04:49:07.784Z</published>
+    <updated>2025-03-16T04:51:22.411Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="beN5t">介绍</h1><p>Pwnagotchi是一个基于a2c的“ai”，由bettercap提供支持，它从周围的WiFi环境中学习，以最大限度地获取可破解的WPA密钥材料(通过被动嗅测或执行去认证和关联攻击)。这些资料以PCAP文件的形式收集在磁盘上，包含hashcat支持的任何形式的可破解握手，包括完整的和一半的WPA握手以及PMKIDs。</p><p>简单点说的话它就是一个可以帮助你捕获破解wifi所需要握手包的工具（其实重点在它像个电子宠物一样</p><h2 id="dGmid">工作原理</h2>只需要知道它可以进行深度学习就行，但是有一点不一样的地方是。它与通常的强化学习模拟不同，Pwnagotchi实际上是在人类的时间尺度上学习的，因为它是与现实世界的环境互动，而不是一个定义良好的虚拟环境(比如玩超级马里奥)。一幅画的时间是用年代来衡量的;一个epoch可以持续几秒到几分钟，这取决于有多少接入点和客户端站可见。<p>不要期望你的Pwnagotchi在一开始就表现得非常好，因为它将探索几个关键参数的组合，以确定在开始阶段对特定环境的理想调整。但当你的Pwnagotchi告诉你它很无聊的时候，一定要听!把它带到新的WiFi环境中，让它观察新的网络，捕捉新的握手——你会看到的。：）</p><p>随着时间的推移，两个或更多的Pwnagotchi单位一起训练，将学会合作，通过分配可用的频道来探测彼此的存在。（有点类似于边缘计算</p><h2 id="YKAWo">攻击原理</h2>在连接到无线接入点的客户端设备(例如，连接到家庭WiFi网络的手机)能够安全地传输和接收来自该接入点的数据之前，需要进行一个称为4次握手的过程，以便生成WPA加密密钥。这个过程包括在客户端设备和AP之间交换四个数据包;它们用于从接入点的WiFi密码中获得会话密钥。一旦成功交换了数据包并生成了密钥，客户端设备就可以通过身份验证，并开始向无线AP发送和接收数据包(现在通过加密保护)。<p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316125053971.png"></p><p>问题出在四次握手的过程中，这四个握手包很容易被嗅探。一旦记录下来就可以使用字典或者暴力破解握手包并恢复原始wifi密钥。而在实战中我们甚至不需要全部4个握手包，只有一半即两个也可以以破解。在大多数情况下即使没有连接一个握手包就足够了。</p><h1 id="BdRNZ">硬件要求</h1>1. 一个树莓派zero w2. 至少8gb以上的内存的SD卡3. 移动电源供电（可以用充电宝也可以买专门为树莓派zero设计的ups-lite4. 一块水墨屏 waveshare 2.135. 一条结实可靠的micro usb数据线<p>均可以在淘宝上购买</p><h3 id="nQLy9">如何安装</h3>[https://pwnagotchi.ai/installation/#flashing-an-image](https://pwnagotchi.ai/installation/#flashing-an-image)<p>最方便的方式就是使用官方提供的镜像，使用<a href="https://www.balena.io/etcher/">https://www.balena.io/etcher/</a>进行写入</p><p>安装步骤如下</p><ol><li>下载镜像文件</li><li>下载 balenaetcher并且安装</li><li>连接好读卡器</li><li>打开balenaetcher选择树莓派镜像</li><li>写入卡中</li></ol><details class="lake-collapse"><summary id="uf207c31d"><span class="ne-text">这里记录一下踩坑的一些点</span></summary><p id="udc0ca7be" class="ne-p"><span class="ne-text">在淘宝上买屏幕我们买的是v3版本的，在官方镜像中不兼容。所以建议下载1.56 beta版本的镜像</span></p><p id="ua0de47c1" class="ne-p"><a href="https://github.com/DrSchottky/pwnagotchi/releases" data-href="https://github.com/DrSchottky/pwnagotchi/releases" target="_blank" class="ne-link"><span class="ne-text">https://github.com/DrSchottky/pwnagotchi/releases</span></a></p><p id="u95221cc7" class="ne-p"><span class="ne-text"></span></p><p id="u5eba149c" class="ne-p"><span class="ne-text">关于如何安装带有v3屏幕的pwnagochi这里是教程</span></p><p id="u879b6f08" class="ne-p"><a href="https://pwnsec.io/how-to-make-a-pwnagotchi-in-2022-with-a-waveshare-v3-screen/" data-href="https://pwnsec.io/how-to-make-a-pwnagotchi-in-2022-with-a-waveshare-v3-screen/" target="_blank" class="ne-link"><span class="ne-text">https://pwnsec.io/how-to-make-a-pwnagotchi-in-2022-with-a-waveshare-v3-screen/</span></a></p><p id="u09082f7f" class="ne-p"><br></p><p id="u5f59b89a" class="ne-p"><span class="ne-text">省流版本的话就是在安装1.56版本的镜像后把config.toml的内容更改为</span></p><p id="ud17ff7bc" class="ne-p"><span class="ne-text">main.name = “NameOfYourPwnagotchi”<br /></span><span class="ne-text">main.lang = “en”<br /></span><span class="ne-text">main.whitelist = [<br /></span><span class="ne-text">“YourWifiYouDontWantToSniff”<br /></span><span class="ne-text">]</span></p><p id="uebcbe049" class="ne-p"><span class="ne-text">main.plugins.grid.enabled = false<br /></span><span class="ne-text">main.plugins.grid.report = false<br /></span><span class="ne-text">main.plugins.grid.exclude = [<br /></span><span class="ne-text">“YourHomeNetworkHere”<br /></span><span class="ne-text">]</span></p><p id="ud23ee860" class="ne-p"><span class="ne-text">ui.display.enabled = true<br /></span><span class="ne-text">ui.display.type = “waveshare_3”<br /></span><span class="ne-text">ui.display.color = “black”</span></p><p id="u86745c63" class="ne-p"><span class="ne-text">personality.advertise = false<br /></span><span class="ne-text">personality.deauth = false</span></p></details><p>以上是装在树莓派zero w中的。这是linux版本教程</p><p><a href="https://pwnagotchi.ai/installation/#installing-on-any-gnu-linux">https://pwnagotchi.ai/installation/#installing-on-any-gnu-linux</a></p><h3 id="H6kAV">安装完后的配置</h3>在安装好镜像后需要做的第一件事情是进行配置。通过读卡器在SD卡boot目录下面新建一个config.toml文件。然后输入以下内容<pre><code class="language-python">main.name = &quot;pwnagotchi&quot;main.lang = &quot;en&quot;main.whitelist = [  &quot;EXAMPLE_NETWORK&quot;,  &quot;ANOTHER_EXAMPLE_NETWORK&quot;,  &quot;fo:od:ba:be:fo:od&quot;,  &quot;fo:od:ba&quot;]main.plugins.grid.enabled = truemain.plugins.grid.report = truemain.plugins.grid.exclude = [  &quot;YourHomeNetworkHere&quot;]ui.display.enabled = trueui.display.type = &quot;waveshare213d&quot;ui.display.color = &quot;black&quot;</code></pre><p>接着把micro usb线连接上电脑</p><p>注意！这里很有可能出现连接电脑后识别不出的情况，这是因为在正常情况下windows系统会把rndis识别成串口，我们需要做的是打上驱动</p><p><a href="https://blog.csdn.net/baidu_32237719/article/details/78189144">https://blog.csdn.net/baidu_32237719&#x2F;article&#x2F;details&#x2F;78189144</a></p><p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316125103412.png"></p><p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316125101186.png"></p><p>安装成功</p><h1 id="kSWXR">如何使用</h1><h2 id="FGFtx">模式介绍</h2>**MANU模式**<p>在连接到设备usb数据接口的情况下它将以手动模式启动，它能够读取一些日志文件并在屏幕上统计数据。这是当想要从单位传输数据时候应该使用的模式</p><p><strong>AUTO模式</strong></p><p>如果在只连接usb电源端口的情况下这是设备默认启动的模式。例如只有连接段源码却没有连接到电脑数据端口上时。自动模式下单位将自动开始操作执行攻击</p><p><strong>AI模式</strong></p><p>如果你在默认配置中启动了ai模式，auto模式将在几分钟后转换为ai（它的转换时间取决于sd卡的读取速度）。这段时间被用于加载ai模块所使用的所有依赖并且初始化神经网络。一旦依赖被加载，即&#x2F;root&#x2F;brain.nn文件会被唤醒，ai模式将自动选择最佳的参数集。这取决于它训练了多长时间</p><h2 id="pwHAj">ui</h2>如果通过usb0连接到设备并在网络接口上设置了静态地址。在默认情况下它的地址是[http://pwnagotchi.local:8080/](http://pwnagotchi.local:8080/)<p>它的默认用户名和密码都是changeme，如果你想要把它更改为自己的名字可以在config.toml中更改</p><h3 id="WZDpd">墨水屏配置和详细解读</h3>![](https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316125110613.png)<ul><li><strong>CH</strong>:这显示的是当前运行的channel，当在所有通道上执行嗅探和跳频时候它将显示*而不是一个具体的数字。它在嗅探的时候会收集每个频道上的ap数量。</li><li><strong>AP</strong>:显示的是当前信道上的接入点数量，括号中显示了所有通道的可见访问点总数（根据最后一次嗅探的信道</li><li><strong>UP</strong>:设备的正常运行时间，自上次重新启动以来。格式为hh:mm:ss。</li><li><strong>PWND</strong>:在当前会话中捕获的握手次数。括号中显示的是pwnagochi从安装开始至少握手过唯一ssid的数量，花括号中显示的是pwnagochi最近一次进行握手的ssid</li><li><strong>MODE</strong>:表示pwnagochi当前以什么模式进行运行<ul><li><strong>MANU</strong></li><li>这种模式适合更新和备份你的单位和使用bettercap的web UI。</li><li>Pwnagotchi在手动模式下不会嗅或捕捉握手。</li><li>陷入手动模式?打开未连接USB网线的设备。</li><li><strong>AUTO</strong></li><li>在这种模式下Pwnagotchi仍然会嗅探并捕获握手;它主要是功能性的——自动模式和人工智能模式之间的主要区别是，它的行动是由静态算法决定的，而不是由人工智能决定Pwnagotchi应该做什么来获得最佳pwnage。</li><li>一旦AI依赖项被引导并且神经网络完成加载，这就消失了。(按RPi0W计算，这个过程大约需要20-30分钟。)</li><li>如果你在没有启用AI的情况下运行Pwnagotchi，这是你将保持的模式。</li><li><strong>AI</strong></li><li>一旦出现了这样标识就表明pizerow准备好开始训练了</li></ul></li></ul><p>成品展示</p><p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316125116406.jpg" alt="Image_7140246746598"></p>]]></content>
+    
+    
+    <summary type="html">这是一篇关于Pwnagotchi简要介绍。
+</summary>
+    
+    
+    
+    <category term="wifi" scheme="https://ch0en3.github.io/categories/wifi/"/>
+    
+    <category term="hardware" scheme="https://ch0en3.github.io/categories/wifi/hardware/"/>
+    
+    
+    <category term="hardware" scheme="https://ch0en3.github.io/tags/hardware/"/>
+    
+    <category term="wifi" scheme="https://ch0en3.github.io/tags/wifi/"/>
+    
+  </entry>
   
   <entry>
     <title>门禁控制系统(PACS)与OSDP攻击研究</title>
@@ -39,16 +65,16 @@
   </entry>
   
   <entry>
-    <title>Nrfbox-蓝牙黑客硬件设备制作</title>
-    <link href="https://ch0en3.github.io/2025/03/%E8%93%9D%E7%89%99%E9%BB%91%E5%AE%A2%E7%A1%AC%E4%BB%B6%E8%AE%BE%E5%A4%87%E5%88%B6%E4%BD%9C/"/>
-    <id>https://ch0en3.github.io/2025/03/%E8%93%9D%E7%89%99%E9%BB%91%E5%AE%A2%E7%A1%AC%E4%BB%B6%E8%AE%BE%E5%A4%87%E5%88%B6%E4%BD%9C/</id>
+    <title>硬件黑客-Nrfbox</title>
+    <link href="https://ch0en3.github.io/2025/03/%E7%A1%AC%E4%BB%B6%E9%BB%91%E5%AE%A2-nrfbox/"/>
+    <id>https://ch0en3.github.io/2025/03/%E7%A1%AC%E4%BB%B6%E9%BB%91%E5%AE%A2-nrfbox/</id>
     <published>2025-03-15T18:27:00.000Z</published>
-    <updated>2025-03-16T03:12:57.558Z</updated>
+    <updated>2025-03-16T04:50:00.668Z</updated>
     
     <content type="html"><![CDATA[<p>该工具出自<a href="https://cifertech.net/nrfbox-your-all-in-one-gadget-for-ble-and-2-4ghz-networks/">https://cifertech.net/nrfbox-your-all-in-one-gadget-for-ble-and-2-4ghz-networks/</a></p><p>个人对这款工具做了一些小小的改进，增加了中继部分的功能。代码就不放了如果有感兴趣的师傅想要复现的可以私下交流</p><p>制作难度应该主要出现在硬件制作层面，这边分享一下我买的器件表。他提供的 bom 表在嘉立创很难找到合适的 需要自己去配</p><p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316110707854.jpeg"></p><p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316110723825.jpeg" alt="1729504368429-c2f6e72c-c27b-457b-a3d0-4c6ea69c7adb"><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316110834237.jpeg" alt="1729504369895-88554f1e-663d-4077-aaf3-8c7dbf8a4db3"></p><p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316110844708.jpeg" alt="1729504371237-1be0c917-3731-4a34-b2d0-39b72e16c18e"></p><p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316111207852.jpeg"></p><p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316111212249.jpeg"></p><p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316111216233.jpeg"></p><p> <img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316110907069.jpeg"></p><p>然后就是焊接的问题</p><p>主要多注意芯片和显示屏的引脚，因为引脚比较密所以很容易短路</p><p>一些成品照片</p><p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316014221734.jpg" alt="36516482af4a94d6535d46997aafd19"></p><p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316014227301.jpg" alt="0af1b8325780dcbfeb562ed4f2c62ae"></p><p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250316014230952.jpg" alt="f2f6989be1e77e4ef384f664891fbce"></p>]]></content>
     
     
-    <summary type="html">这是一篇关于蓝牙黑客硬件设备制作简要介绍。
+    <summary type="html">这是一篇关于nrfbox简要介绍。
 </summary>
     
     
