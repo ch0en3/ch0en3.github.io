@@ -6,7 +6,7 @@
   <link href="https://ch0en3.github.io/atom.xml" rel="self"/>
   
   <link href="https://ch0en3.github.io/"/>
-  <updated>2025-03-16T11:49:09.578Z</updated>
+  <updated>2025-04-20T15:35:26.001Z</updated>
   <id>https://ch0en3.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用Tcpdump对手机app抓包</title>
+    <link href="https://ch0en3.github.io/2025/04/%E4%BD%BF%E7%94%A8tcpdump%E5%AF%B9%E6%89%8B%E6%9C%BA%E8%BF%9B%E8%A1%8C%E6%8A%93%E5%8C%85/"/>
+    <id>https://ch0en3.github.io/2025/04/%E4%BD%BF%E7%94%A8tcpdump%E5%AF%B9%E6%89%8B%E6%9C%BA%E8%BF%9B%E8%A1%8C%E6%8A%93%E5%8C%85/</id>
+    <published>2025-04-20T15:24:07.022Z</published>
+    <updated>2025-04-20T15:35:26.001Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="软件下载"><a href="#软件下载" class="headerlink" title="软件下载"></a>软件下载</h1><p>adb<a href="https://developer.android.google.cn/tools/releases/platform-tools?hl=en">https://developer.android.google.cn/tools/releases/platform-tools?hl=en</a></p><p> tcpdump <a href="https://www.androidtcpdump.com/android-tcpdump/downloads64bit">https://www.androidtcpdump.com/android-tcpdump/downloads64bit</a></p><h1 id="tcpdump-抓包"><a href="#tcpdump-抓包" class="headerlink" title="tcpdump 抓包"></a>tcpdump 抓包</h1><p>首先将电脑上的 tcpdump 直接推送到手机上(前提是手机 root 过</p><pre><code class="language-yaml">adb push tcpdump /data/local/tmp/adb shellsuchmod +x /data/local/tmp/tcpdump</code></pre><p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250420233424962.png"></p><p>这是我刷过 root 的手机，此时已经可以通过 adb 进行操作</p><p>然后查看抓流量的接口</p><pre><code class="language-yaml">ip link show</code></pre><p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250420233425109.png"></p><p>在这里我使用的是 wlan0，所以使用如下命令去抓数据包</p><pre><code class="language-yaml">/data/local/tmp/tcpdump -i wlan0 -s 0 -w /sdcard/wifi_traffic.pcap</code></pre><p>在抓完后用 adb 抓到电脑用电脑打开.pcap 文件</p><pre><code class="language-yaml">adb pull /sdcard/app_traffic.pcap</code></pre><p>设置过滤器</p><pre><code class="language-yaml">ip.src == 192.168.80.2 &amp;&amp; ip.dst == 192.168.80.1 &amp;&amp; udp</code></pre><p>中间人攻击（需要外置网卡）</p><p> 欺骗无人机，使其将地面站的流量发送到你  </p><p><code>sudo arpspoof -i wlan3 -t 192.168.80.1 -r 192.168.80.2</code></p><p> 欺骗地面站，使其将无人机的流量发送到你  </p><p><code>sudo arpspoof -i wlan3 -t 192.168.80.2 -r 192.168.80.1</code></p>]]></content>
+    
+    
+    <summary type="html">记录一下对手机app与无人机通信抓包的流程</summary>
+    
+    
+    
+    <category term="抓包" scheme="https://ch0en3.github.io/categories/%E6%8A%93%E5%8C%85/"/>
+    
+    
+    <category term="抓包" scheme="https://ch0en3.github.io/tags/%E6%8A%93%E5%8C%85/"/>
+    
+  </entry>
   
   <entry>
     <title>硬件黑客-Pwnagotchi</title>
@@ -194,30 +215,6 @@
     
     
     <category term="hexo" scheme="https://ch0en3.github.io/tags/hexo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用Tcpdump手机抓包</title>
-    <link href="https://ch0en3.github.io/2001/04/%E4%BD%BF%E7%94%A8tcpdump%E5%AF%B9%E6%89%8B%E6%9C%BA%E8%BF%9B%E8%A1%8C%E6%8A%93%E5%8C%85/"/>
-    <id>https://ch0en3.github.io/2001/04/%E4%BD%BF%E7%94%A8tcpdump%E5%AF%B9%E6%89%8B%E6%9C%BA%E8%BF%9B%E8%A1%8C%E6%8A%93%E5%8C%85/</id>
-    <published>2001-04-19T16:00:00.000Z</published>
-    <updated>2025-04-20T15:32:41.797Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="软件下载"><a href="#软件下载" class="headerlink" title="软件下载"></a>软件下载</h1><p>adb<a href="https://developer.android.google.cn/tools/releases/platform-tools?hl=en">https://developer.android.google.cn/tools/releases/platform-tools?hl=en</a></p><p> tcpdump <a href="https://www.androidtcpdump.com/android-tcpdump/downloads64bit">https://www.androidtcpdump.com/android-tcpdump/downloads64bit</a></p><p>记录一下对手机app与无人机通信抓包的流程</p><h1 id="tcpdump-抓包"><a href="#tcpdump-抓包" class="headerlink" title="tcpdump 抓包"></a>tcpdump 抓包</h1><p>首先将电脑上的 tcpdump 直接推送到手机上(前提是手机 root 过</p><pre><code class="language-yaml">adb push tcpdump /data/local/tmp/adb shellsuchmod +x /data/local/tmp/tcpdump</code></pre><p><img src="https://cdn.nlark.com/yuque/0/2025/png/29413051/1744892228493-f8397c14-7737-4239-ba91-e842961917dd.png"></p><p>这是我刷过 root 的手机，此时已经可以通过 adb 进行操作</p><p>然后查看抓流量的接口</p><pre><code class="language-yaml">ip link show</code></pre><p><img src="https://cdn.nlark.com/yuque/0/2025/png/29413051/1744892380423-310f2193-60a6-4f13-ba5a-8cc2044045f0.png"></p><p>在这里我使用的是 wlan0，所以使用如下命令去抓数据包</p><pre><code class="language-yaml">/data/local/tmp/tcpdump -i wlan0 -s 0 -w /sdcard/wifi_traffic.pcap</code></pre><p>在抓完后用 adb 抓到电脑用电脑打开.pcap 文件</p><pre><code class="language-yaml">adb pull /sdcard/app_traffic.pcap</code></pre><p>设置过滤器</p><pre><code class="language-yaml">ip.src == 192.168.80.2 &amp;&amp; ip.dst == 192.168.80.1 &amp;&amp; udp</code></pre><p>中间人攻击（需要外置网卡）</p><p> 欺骗无人机，使其将地面站的流量发送到你  </p><p><code>sudo arpspoof -i wlan3 -t 192.168.80.1 -r 192.168.80.2</code></p><p> 欺骗地面站，使其将无人机的流量发送到你  </p><p><code>sudo arpspoof -i wlan3 -t 192.168.80.2 -r 192.168.80.1</code></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;软件下载&quot;&gt;&lt;a href=&quot;#软件下载&quot; class=&quot;headerlink&quot; title=&quot;软件下载&quot;&gt;&lt;/a&gt;软件下载&lt;/h1&gt;&lt;p&gt;adb&lt;a href=&quot;https://developer.android.google.cn/tools/releases</summary>
-      
-    
-    
-    
-    <category term="无人机" scheme="https://ch0en3.github.io/categories/%E6%97%A0%E4%BA%BA%E6%9C%BA/"/>
-    
-    
-    <category term="tcpdump" scheme="https://ch0en3.github.io/tags/tcpdump/"/>
     
   </entry>
   

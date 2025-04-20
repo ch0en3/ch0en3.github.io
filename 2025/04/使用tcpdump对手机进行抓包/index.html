@@ -3,7 +3,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8" />
-    <title>Tags: tcpdump | ch0en3&#39;s blog</title>
+    <title>使用Tcpdump对手机app抓包 | ch0en3&#39;s blog</title>
     <meta name="author" content="ch0en3" />
     <meta name="description" content="" />
     <meta name="keywords" content="hacker/geeker" />
@@ -37,6 +37,10 @@
 
 
 <script src="/js/lib/preview.js"></script>
+
+
+
+
 
 
 
@@ -151,140 +155,82 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div id="archives">
-    
-    <div class="categories-tags">
+            <div class="article">
+    <div>
+        <h1>使用Tcpdump对手机app抓包</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/4/20
+        </span>
         
-        
-        
-        <span>
-            <a href="/tags/%E6%97%A0%E7%BA%BF%E7%94%B5%E5%AE%89%E5%85%A8%E5%85%A5%E9%97%A8/" style="background: #ffa2c4">
+        <span class="category">
+            <a href="/categories/%E6%8A%93%E5%8C%85/">
                 <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
-                无线电安全入门
+                抓包
             </a>
         </span>
         
         
-        
-        <span>
-            <a href="/tags/tcpdump/" style="background: linear-gradient(120deg, #9abbf7 0%, #ffbbf4 100%)">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                tcpdump
-            </a>
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E6%8A%93%E5%8C%85/" style="color: #00a596">
+                    抓包
+                </a>
+            </span>
+            
         </span>
-        
-        
-        
-        
-        
-        <span>
-            <a href="/tags/bluetooth/" style="background: #ff7d73">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                bluetooth
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/hardware/" style="background: #00bcd4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                hardware
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/hexo/" style="background: #00a596">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                hexo
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/wifi/" style="background: #03a9f4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                wifi
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/car-hacking/" style="background: #00bcd4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                car-hacking
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/rfid/" style="background: #ffa2c4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                rfid
-            </a>
-        </span>
-        
         
     </div>
     
-    <div class="timeline">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2001/4/20</div>
-            <a href="/2001/04/%E4%BD%BF%E7%94%A8tcpdump%E5%AF%B9%E6%89%8B%E6%9C%BA%E8%BF%9B%E8%A1%8C%E6%8A%93%E5%8C%85/">
-                <h3>使用Tcpdump手机抓包</h3>
-            </a>
-            <div class="info">
-                
-                <span class="category">
-                    <a href="/categories/%E6%97%A0%E4%BA%BA%E6%9C%BA/">
-                        <span class="icon">
-                            <i class="fa-solid fa-bookmark fa-fw"></i>
-                        </span>
-                        无人机
-                    </a>
-                </span>
-                
-                
-                <span class="tags">
-                    <span class="icon">
-                        <i class="fa-solid fa-tags fa-fw"></i>
-                    </span>
-                    
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/tcpdump/" style="color: #00bcd4">
-                            tcpdump
-                        </a>
-                    </span>
-                    
-                </span>
-                
-            </div>
-        </div>
+    <div class="content" v-pre>
+        <h1 id="软件下载"><a href="#软件下载" class="headerlink" title="软件下载"></a>软件下载</h1><p>adb<a target="_blank" rel="noopener" href="https://developer.android.google.cn/tools/releases/platform-tools?hl=en">https://developer.android.google.cn/tools/releases/platform-tools?hl=en</a></p>
+<p> tcpdump <a target="_blank" rel="noopener" href="https://www.androidtcpdump.com/android-tcpdump/downloads64bit">https://www.androidtcpdump.com/android-tcpdump/downloads64bit</a></p>
+<h1 id="tcpdump-抓包"><a href="#tcpdump-抓包" class="headerlink" title="tcpdump 抓包"></a>tcpdump 抓包</h1><p>首先将电脑上的 tcpdump 直接推送到手机上(前提是手机 root 过</p>
+<pre><code class="language-yaml">adb push tcpdump /data/local/tmp/
+adb shell
+su
+chmod +x /data/local/tmp/tcpdump
+</code></pre>
+<p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250420233424962.png"></p>
+<p>这是我刷过 root 的手机，此时已经可以通过 adb 进行操作</p>
+<p>然后查看抓流量的接口</p>
+<pre><code class="language-yaml">ip link show
+</code></pre>
+<p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250420233425109.png"></p>
+<p>在这里我使用的是 wlan0，所以使用如下命令去抓数据包</p>
+<pre><code class="language-yaml">/data/local/tmp/tcpdump -i wlan0 -s 0 -w /sdcard/wifi_traffic.pcap
+</code></pre>
+<p>在抓完后用 adb 抓到电脑用电脑打开.pcap 文件</p>
+<pre><code class="language-yaml">adb pull /sdcard/app_traffic.pcap
+</code></pre>
+<p>设置过滤器</p>
+<pre><code class="language-yaml">ip.src == 192.168.80.2 &amp;&amp; ip.dst == 192.168.80.1 &amp;&amp; udp
+</code></pre>
+<p>中间人攻击（需要外置网卡）</p>
+<p> 欺骗无人机，使其将地面站的流量发送到你  </p>
+<p><code>sudo arpspoof -i wlan3 -t 192.168.80.1 -r 192.168.80.2</code></p>
+<p> 欺骗地面站，使其将无人机的流量发送到你  </p>
+<p><code>sudo arpspoof -i wlan3 -t 192.168.80.2 -r 192.168.80.1</code></p>
+
     </div>
+    
+    
+    
+    
+    
+    
     
 </div>
 
@@ -316,6 +262,12 @@
         
     </div>
     <script src="/js/main.js"></script>
+    
+    
+
+
+
+
     
 </body>
 </html>
