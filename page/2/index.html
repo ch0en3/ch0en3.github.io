@@ -3,7 +3,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8" />
-    <title>Categories: wifi | ch0en3&#39;s blog</title>
+    <title>ch0en3&#39;s blog</title>
     <meta name="author" content="ch0en3" />
     <meta name="description" content="" />
     <meta name="keywords" content="hacker/geeker" />
@@ -41,6 +41,8 @@
 
 
 
+
+<script src="/js/lib/home.js"></script>
 
 <link rel="stylesheet" href="/css/main.css" />
 
@@ -151,25 +153,42 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div id="archives">
-    
-    <div class="categories-tags">
-        
-        
-        
-        <span>
-            <a href="/categories/%E6%97%A0%E7%BA%BF%E7%94%B5%E5%AE%89%E5%85%A8%E5%85%A5%E9%97%A8/" style="background: #00a596">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                无线电安全入门
-            </a>
+            <div id="home-head">
+    <div
+        id="home-background"
+        ref="homeBackground"
+        data-images="/images/background.jpg"
+    ></div>
+    <div id="home-info" @click="homeClick">
+        <span class="loop"></span>
+        <span class="loop"></span>
+        <span class="loop"></span>
+        <span class="loop"></span>
+        <span class="info">
+            <div class="wrap">
+                <h1>ch0en3&#39;s blog</h1>
+                <h3>当时年少春衫薄</h3>
+                <h5></h5>
+            </div>
         </span>
+    </div>
+</div>
+<div
+    id="home-posts-wrap"
+    ref="homePostsWrap"
+    true
+>
+    <div id="home-posts">
         
+
+<div class="post">
+    <a href="/2001/04/%E4%BD%BF%E7%94%A8tcpdump%E5%AF%B9%E6%89%8B%E6%9C%BA%E8%BF%9B%E8%A1%8C%E6%8A%93%E5%8C%85/">
+        <h2 class="post-title">使用Tcpdump手机抓包</h2>
+    </a>
+    <div class="category-and-date">
         
-        
-        <span>
-            <a href="/categories/%E6%97%A0%E4%BA%BA%E6%9C%BA/" style="background: #ffa2c4">
+        <span class="category">
+            <a href="/categories/%E6%97%A0%E4%BA%BA%E6%9C%BA/">
                 <span class="icon">
                     <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
@@ -177,109 +196,126 @@
             </a>
         </span>
         
-        
-        
-        <span>
-            <a href="/categories/bluetooth/" style="background: #ff7d73">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                bluetooth
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/categories/wifi/" style="background: linear-gradient(120deg, #9abbf7 0%, #ffbbf4 100%)">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                wifi
-            </a>
-        </span>
-        
-        
-        
-        
-        
-        <span>
-            <a href="/categories/car-hacking/" style="background: #ffa2c4">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                car-hacking
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/categories/rfid/" style="background: #00bcd4">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                rfid
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/categories/bluetooth/hardware/" style="background: #ffa2c4">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                hardware
-            </a>
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2001/4/20
         </span>
         
         
     </div>
-    
-    <div class="timeline">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2025/3/16</div>
-            <a href="/2025/03/%E7%A1%AC%E4%BB%B6%E9%BB%91%E5%AE%A2-Pwnagotchi/">
-                <h3>硬件黑客-Pwnagotchi</h3>
-            </a>
-            <div class="info">
-                
-                <span class="category">
-                    <a href="/categories/wifi/">
-                        <span class="icon">
-                            <i class="fa-solid fa-bookmark fa-fw"></i>
-                        </span>
-                        wifi
-                    </a>
-                </span>
-                
-                
-                <span class="tags">
-                    <span class="icon">
-                        <i class="fa-solid fa-tags fa-fw"></i>
-                    </span>
-                    
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/hardware/" style="color: #ffa2c4">
-                            hardware
-                        </a>
-                    </span>
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/wifi/" style="color: #03a9f4">
-                            wifi
-                        </a>
-                    </span>
-                    
-                </span>
-                
-            </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h1 id="软件下载"><a href="#软件下载" class="headerlink" title="软件下载"></a>软件下载</h1><p>adb<a target="_blank" rel="noopener" href="https://developer.android.google.cn/tools/releases/platform-tools?hl=en">https://developer.android.google.cn/tools/releases/platform-tools?hl=en</a></p>
+<p> tcpdump <a target="_blank" rel="noopener" href="https://www.androidtcpdump.com/android-tcpdump/downloads64bit">https://www.androidtcpdump.com/android-tcpdump/downloads64bit</a></p>
+<p>记录一下对手机app与无人机通信抓包的流程</p>
+<h1 id="tcpdump-抓包"><a href="#tcpdump-抓包" class="headerlink" title="tcpdump 抓包"></a>tcpdump 抓包</h1><p>首先将电脑上的 tcpdump 直接推送到手机上(前提是手机 root 过</p>
+<pre><code class="language-yaml">adb push tcpdump /data/local/tmp/
+adb shell
+su
+chmod +x /data/local/tmp/tcpdump
+</code></pre>
+<p><img src="https://cdn.nlark.com/yuque/0/2025/png/29413051/1744892228493-f8397c14-7737-4239-ba91-e842961917dd.png"></p>
+<p>这是我刷过 root 的手机，此时已经可以通过 adb 进行操作</p>
+<p>然后查看抓流量的接口</p>
+<pre><code class="language-yaml">ip link show
+</code></pre>
+<p><img src="https://cdn.nlark.com/yuque/0/2025/png/29413051/1744892380423-310f2193-60a6-4f13-ba5a-8cc2044045f0.png"></p>
+<p>在这里我使用的是 wlan0，所以使用如下命令去抓数据包</p>
+<pre><code class="language-yaml">/data/local/tmp/tcpdump -i wlan0 -s 0 -w /sdcard/wifi_traffic.pcap
+</code></pre>
+<p>在抓完后用 adb 抓到电脑用电脑打开.pcap 文件</p>
+<pre><code class="language-yaml">adb pull /sdcard/app_traffic.pcap
+</code></pre>
+<p>设置过滤器</p>
+<pre><code class="language-yaml">ip.src == 192.168.80.2 &amp;&amp; ip.dst == 192.168.80.1 &amp;&amp; udp
+</code></pre>
+<p>中间人攻击（需要外置网卡）</p>
+<p> 欺骗无人机，使其将地面站的流量发送到你  </p>
+<p><code>sudo arpspoof -i wlan3 -t 192.168.80.1 -r 192.168.80.2</code></p>
+<p> 欺骗地面站，使其将无人机的流量发送到你  </p>
+<p><code>sudo arpspoof -i wlan3 -t 192.168.80.2 -r 192.168.80.1</code></p>
+
+            
         </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/tcpdump/" style="color: #03a9f4">tcpdump</a>
+        </span>
+        
+    </div>
+    <a href="/2001/04/%E4%BD%BF%E7%94%A8tcpdump%E5%AF%B9%E6%89%8B%E6%9C%BA%E8%BF%9B%E8%A1%8C%E6%8A%93%E5%8C%85/" class="go-post">阅读全文</a>
+</div>
+
+
+        <div class="page-current">
+    
+    <a class="page-num" href="/">
+        <i class="fa-solid fa-caret-left fa-fw"></i>
+    </a>
+    <a class="page-num" href="/">1</a>
+    <span class="page-omit">...</span>
+    
+    <span class="current">2</span>
+    
+    
+    
+    
+</div>
+
+    </div>
+    
+    <div id="home-card">
+        <div id="card-style">
+    <div id="card-div">
+        <div class="avatar">
+            <img src="/images/avatar.jpg" alt="avatar" />
+        </div>
+        <div class="name">ch0en3</div>
+        <div class="description">
+            <p>禅叁</p>
+
+        </div>
+        
+        <div class="icon-links">
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://github.com/ch0en3">
+                    <i
+                        class="fa-brands fa-github fa-fw"
+                    ></i>
+                </a>
+            </span>
+            
+        </div>
+        
+        
+        <div class="friend-links">
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="https://goodlunatic.github.io">Lunatic</a>
+            </div>
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="https://xz.aliyun.com/users/154057/news">mowen</a>
+            </div>
+            
+        </div>
+        
+    </div>
+</div>
+
     </div>
     
 </div>
