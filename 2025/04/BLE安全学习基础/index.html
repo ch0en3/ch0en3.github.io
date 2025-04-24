@@ -185,7 +185,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/bluetooth/" style="color: #00a596">
+                <a href="/tags/bluetooth/" style="color: #03a9f4">
                     bluetooth
                 </a>
             </span>
@@ -213,9 +213,7 @@
 <p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250424000014137.png"></p>
 <p>但是这种方式实际是不可行的。首先它没有考虑使用哪个射频信道进行传输，不更改API的情况下我们只能对协议栈进行分层，为此引入LL层，开发者还是调用send(0x53)，send(0x53)再调用send_LL(0x53,2402M) 。 这里还有一个问题，设备B怎么知道这个数据包是发给自己的还是其他人的，为此BLE引入<strong>access address概念，用来指明接收者身份</strong>，其中，<strong>0x8E89BED6</strong>这个access address比较特殊，它表示要发给周边所有设备，即广播。如果你要一对一的进行通信（BLE协议将其称为<strong>连接</strong>），即设备A的数据包只能设备B接收，同样设备B的数据包只能设备A接收，那么就必须生成一个独特的<strong>随机</strong>access address以标识设备A和设备B两者之间的连接。  </p>
 <h2 id="广播方式"><a href="#广播方式" class="headerlink" title="广播方式"></a>广播方式</h2><p>假设设备A为<strong>advertiser</strong>（广播者） ， 设备B叫<strong>scanner</strong>或者<strong>observer</strong>（扫描者）。 广播状态下设备A的LL层API将变成send_LL(<strong>0x53,2402M</strong>, <strong>0x8E89BED6</strong>)  。 由于设备B可以同时接收到很多设备的广播，因此数据包还必须包含设备A的device address（<strong>0xE1022AAB753B</strong>）以确认该广播包来自设备A，为此send_LL参数需要变成(<strong>0x53,2402M</strong>, <strong>0x8E89BED6</strong>, <strong>0xE1022AAB753B</strong>)。  LL层还要检查设备的完整性， 即数据在传输过程中有没有发生窜改，为此引入<strong>CRC24</strong>对数据包进行检验 (假设为<strong>0xB2C78E</strong>) 。同时为了调制解调电路工作更高效，每一个数据包的最前面会加上1个字节的preamble（前导帧），preamble一般为<strong>0x55</strong>或者<strong>0xAA</strong>。这样，整个空中包就变成（注：<strong>空中包用小端模式表示（小端模式低位字节排放在内存的低地址端，高位字节排放在内存的高地址端。）</strong>）：  </p>
-<details class="lake-collapse"><summary id="u10eb5a38"><span class="ne-text">大小端的不同</span></summary><p id="u65de905e" class="ne-p"><img src="https://cdn.nlark.com/yuque/0/2022/jpeg/29413051/1672209202074-208e0387-2c63-4be0-9805-25d9ee28caa1.jpeg" width="1041" id="u54861fd8" class="ne-image"></p></details>
-![](https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250424001727399.png)
-
+<p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250424001727399.png"></p>
 <p>上面这个数据包还有如下问题：</p>
 <ul>
 <li>没有对数据包进行分类组织，设备B无法找到自己想要的数据0x53。为此我们需要在access address之后加入两个字段：LL header和长度字节。LL header用来表示数据包的LL类型，长度字节用来指明payload的长度  </li>
@@ -250,7 +248,7 @@
 <li>连接成功后，设备A和B通信流程如图所示</li>
 <li><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250424000022937.png"></li>
 </ol>
-<p>如图所示， 一旦设备A和设备B连接成功（此种情况下，我们把设备A称为<strong>Master</strong>或者<strong>Central</strong>，把设备B称为<strong>Slave</strong>或者<strong>Peripheral</strong>） ，设备A将周期性以CI（connection interval）为间隔向设备B发送数据包，而设备B也周期性地以CI为间隔打开射频接收窗口以接收设备A的数据包。  同时按照蓝牙spec要求，设备B收到设备A数据包150us后设备B切换发送状态把自己的数据发给设备A；设备A则切换到接收状态接收设备B发过来的数据。可以看到连接状态下设备A和B的射频发送和接收窗口都是周期性的有计划的开和关并且开的时间非常短从而大大降低设备功</p>
+<p>如图所示， 一旦设备A和设备B连接成功（此种情况下，我们把设备A称为<strong>Master</strong>或者<strong>Central</strong>，把设备B称为<strong>Slave</strong>或者<strong>Peripheral</strong>） ，设备A将周期性以CI（connection interval）为间隔向设备B发送数据包，而设备B也周期性地以CI为间隔打开射频接收窗口以接收设备A的数据包。  同时按照蓝牙spec要求，设备B收到设备A数据包150us后设备B切换发送状态把自己的数据发给设备A；设备A则切换到接收状态接收设备B发过来的数据。可以看到连接状态下设备A和B的射频发送和接收窗口都是周期性的有计划的开和关并且开的时间非常短从而大大降低设备功率</p>
 <ul>
 <li>对开发者来说，很简单，他只需要调用send(0x53)</li>
 <li>GATT层定义数据的类型和分组，方便起见，我们用0x0013标识电量这种数据类型，这样GATT层把数据打包成130053（小端模式）</li>
