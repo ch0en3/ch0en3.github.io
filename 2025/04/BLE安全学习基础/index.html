@@ -185,7 +185,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/bluetooth/" style="color: #03a9f4">
+                <a href="/tags/bluetooth/" style="color: #00bcd4">
                     bluetooth
                 </a>
             </span>
@@ -213,7 +213,7 @@
 <p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250424000014137.png"></p>
 <p>但是这种方式实际是不可行的。首先它没有考虑使用哪个射频信道进行传输，不更改API的情况下我们只能对协议栈进行分层，为此引入LL层，开发者还是调用send(0x53)，send(0x53)再调用send_LL(0x53,2402M) 。 这里还有一个问题，设备B怎么知道这个数据包是发给自己的还是其他人的，为此BLE引入<strong>access address概念，用来指明接收者身份</strong>，其中，<strong>0x8E89BED6</strong>这个access address比较特殊，它表示要发给周边所有设备，即广播。如果你要一对一的进行通信（BLE协议将其称为<strong>连接</strong>），即设备A的数据包只能设备B接收，同样设备B的数据包只能设备A接收，那么就必须生成一个独特的<strong>随机</strong>access address以标识设备A和设备B两者之间的连接。  </p>
 <h2 id="广播方式"><a href="#广播方式" class="headerlink" title="广播方式"></a>广播方式</h2><p>假设设备A为<strong>advertiser</strong>（广播者） ， 设备B叫<strong>scanner</strong>或者<strong>observer</strong>（扫描者）。 广播状态下设备A的LL层API将变成send_LL(<strong>0x53,2402M</strong>, <strong>0x8E89BED6</strong>)  。 由于设备B可以同时接收到很多设备的广播，因此数据包还必须包含设备A的device address（<strong>0xE1022AAB753B</strong>）以确认该广播包来自设备A，为此send_LL参数需要变成(<strong>0x53,2402M</strong>, <strong>0x8E89BED6</strong>, <strong>0xE1022AAB753B</strong>)。  LL层还要检查设备的完整性， 即数据在传输过程中有没有发生窜改，为此引入<strong>CRC24</strong>对数据包进行检验 (假设为<strong>0xB2C78E</strong>) 。同时为了调制解调电路工作更高效，每一个数据包的最前面会加上1个字节的preamble（前导帧），preamble一般为<strong>0x55</strong>或者<strong>0xAA</strong>。这样，整个空中包就变成（注：<strong>空中包用小端模式表示（小端模式低位字节排放在内存的低地址端，高位字节排放在内存的高地址端。）</strong>）：  </p>
-<p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250424001727399.png"></p>
+<p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250424151358602.png"></p>
 <p>上面这个数据包还有如下问题：</p>
 <ul>
 <li>没有对数据包进行分类组织，设备B无法找到自己想要的数据0x53。为此我们需要在access address之后加入两个字段：LL header和长度字节。LL header用来表示数据包的LL类型，长度字节用来指明payload的长度  </li>
@@ -361,7 +361,7 @@
 <p>6.2发现从机</p>
 <p>当主机扫描到从机时，可以返回已扫描到的从机相关信息，例如可以提取到下图中的从机设备名称，从机MAC地址，从机的RSSI信号值等数据。 </p>
 <p>因此，有些应用在从机的广播包或者扫描回应包中添加自定义字段，这样就可以被主机通过扫描的方式拿到数据。</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2023/png/29413051/1673435823175-b30c76c1-9699-4ee2-9e7d-9f22e9937922.png"></p>
+<p><img src="https://ch0en3.oss-cn-nanjing.aliyuncs.com/20250424212522617.png"></p>
 <p>6.3发送连接请求</p>
 <p>当主机扫描到从机后，通过MAC地址向从机发送连接请求。低功耗蓝牙的连接速度非常快，100ms左右即可成功连接上。如果从机的广播比较大，则会影响连接的速度。 </p>
 <p>从机在未收到连接请求之前仍然处于自由的广播状态。</p>
